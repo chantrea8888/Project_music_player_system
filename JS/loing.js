@@ -97,3 +97,14 @@ document.getElementById('register').addEventListener('submit', function(e) {
         document.getElementById('loginForm').style.display = 'block';
     }, 1800);
 });
+let hiddenForm = document.getElementById("container");
+let submitBtn = document.getElementById("btn-login");
+let userName = document.getElementById("loginEmail");
+console.log(submitBtn);
+hiddenForm.style.display = "block"
+function loginRegister() {
+hiddenForm.style.display = "none"
+
+
+}
+submitBtn.addEventListener("click", loginRegister)
