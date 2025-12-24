@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="./Css/style.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- Custom CSS -->
+</head>
+<body>
+    <div class="app-container">
+        <div class="row g-0">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-xl-2">
+                <div class="sidebar">
+                    <div class="logo">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#" id="nav-library">
+                                <i class="fas fa-headphones-alt"></i> My Library
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-playlists">
+                                <i class="fas fa-list"></i> Playlists
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-upload">
+                                <i class="fas fa-cloud-upload-alt"></i> Upload Music
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-lyrics">
+                                <i class="fas fa-file-alt"></i> Lyrics
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" id="nav-settings">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                        </li>
+                    </ul>
+                    
+                    <!-- Playlists List in Sidebar -->
+                    <div class="mt-5">
+                        <h6 class="text-uppercase text-light opacity-75 mb-3">Your Playlists</h6>
+                        <div id="sidebar-playlists">
+                            <!-- Playlists will be dynamically added here -->
+                        </div>
+                    </div>
+                    
+                    <!-- User Section -->
+                    <div class="mt-auto pt-4">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-light d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                <i class="fas fa-user text-primary"></i>
+                            </div>
+                            <div class="ms-3">
+                                <p class="mb-0 fw-bold">Username</p>
+                                <p class="mb-0 small opacity-50">username@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-lg-9 col-xl-10">
+                <div class="main-content">
+                    <!-- Now Playing Section -->
+                    <div id="library-section">
+                        <div class="player-container">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <img src="https://cdn.shopify.com/s/files/1/0658/0076/5497/files/Vannda_artiste_star_cambodge_600x600.jpg?v=1745328027" alt="Album Art" class="album-art" id="album-art">
+                                </div>
+                                <div class="col-md-7">
+                                    <div class="mt-4 mt-md-0">
+                                        <h2 class="song-title" id="song-title">Time to right</h2>
+                                        <p class="song-artist" id="song-artist">Vannda</p>
+                                        
+                                        <!-- Audio Visualization (Waveform) -->
+                                        <div class="waveform-container" id="waveform">
+                                            <div class="text-center">
+                                                <i class="fas fa-wave-square me-2"></i>
+                                                Audio visualization will appear here during playback
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Progress Bar -->
+                                        <div class="progress-container">
+                                            <div class="progress-bar">
+                                                <div class="progress" id="song-progress"></div>
+                                            </div>
+                                            <div class="time-display">
+                                                <span id="current-time">0:00</span>
+                                                <span id="total-time">3:20</span>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Player Controls -->
+                                        <div class="player-controls">
+                                            <button class="control-btn" id="shuffle-btn" title="Shuffle">
+                                                <i class="fas fa-random"></i>
+                                            </button>
+                                            <button class="control-btn" id="prev-btn" title="Previous">
+                                                <i class="fas fa-step-backward"></i>
+                                            </button>
+                                            <button class="control-btn play-pause" id="play-pause-btn" title="Play">
+                                                <i class="fas fa-play"></i>
+                                            </button>
+                                            <button class="control-btn" id="next-btn" title="Next">
+                                                <i class="fas fa-step-forward"></i>
+                                            </button>
+                                            <button class="control-btn" id="loop-btn" title="Loop">
+                                                <i class="fas fa-redo"></i>
+                                            </button>
+                                        </div>
+                                        
+                                        <!-- Volume Control -->
+                                        <div class="volume-container">
+                                            <i class="fas fa-volume-up"></i>
+                                            <input type="range" class="form-range volume-slider" id="volume-slider" min="0" max="100" value="80">
+                                        </div>
+                                        
+                                        <!-- Playlist Controls -->
+                                        <div class="playlist-controls mt-4">
+                                            <div class="shuffle-loop-btns">
+                                                <button class="btn btn-outline-secondary btn-sm" id="toggle-shuffle">
+                                                    <i class="fas fa-random me-1"></i> Shuffle
+                                                </button>
+                                                <button class="btn btn-outline-secondary btn-sm" id="toggle-loop">
+                                                    <i class="fas fa-redo me-1"></i> Loop
+                                                </button>
+                                            </div>
+                                            <button class="btn btn-outline-custom btn-sm" id="add-to-playlist">
+                                                <i class="fas fa-plus me-1"></i> Add to Playlist
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Current Playlist -->
+                        <div class="playlist-section">
+                            <h3 class="section-title">Now Playing</h3>
+                            <div id="now-playing-list">
+                                <!-- Songs will be dynamically added here -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Playlists Management Section (Hidden by default) -->
+                    <div id="playlists-section" class="d-none">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h3 class="section-title mb-0">My Playlists</h3>
+                            <button class="btn btn-custom" id="create-playlist-btn">
+                                <i class="fas fa-plus me-1"></i> Create New Playlist
+                            </button>
+                        </div>
+                        
+                        <div class="row" id="playlists-container">
+                            <!-- Playlists will be dynamically added here -->
+                        </div>
+                    </div>
+                    
+                    <!-- Upload Music Section (Hidden by default) -->
+                    <div id="upload-section" class="d-none">
+                        <h3 class="section-title">Upload Music</h3>
+                        <div class="upload-area" id="upload-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h5>Drag and drop your music files here</h5>
+                            <p class="text-muted">Supports MP3, WAV, FLAC, and other audio formats</p>
+                            <p class="text-muted">Max file size: 50MB</p>
+                            <button class="btn btn-custom mt-2" id="browse-files-btn">
+                                <i class="fas fa-folder-open me-1"></i> Browse Files
+                            </button>
+                            <input type="file" id="file-input" accept="audio/*" multiple class="d-none">
+                        </div>
+                        
+                        <div class="mt-4">
+                            <h5>Recently Uploaded</h5>
+                            <div id="uploaded-songs">
+                                <!-- Uploaded songs will appear here -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lyrics Section (Hidden by default) -->
+                    <div id="lyrics-section" class="d-none">
+                        <h3 class="section-title">Lyrics</h3>
+                        <div class="lyrics-container" id="lyrics-container">
+                            <div class="lyrics-line">[Lyrics will appear here for the current song]</div>
+                            <div class="lyrics-line">Select a song to view its lyrics</div>
+                            <div class="lyrics-line">You can also upload lyrics for your songs</div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="btn btn-custom" id="upload-lyrics-btn">
+                                <i class="fas fa-upload me-1"></i> Upload Lyrics for Current Song
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Settings Section (Hidden by default) -->
+                    <div id="settings-section" class="d-none">
+                        <h3 class="section-title">Settings</h3>
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Audio Settings</h5>
+                                <div class="mb-3">
+                                    <label for="audio-quality" class="form-label">Audio Quality</label>
+                                    <select class="form-select" id="audio-quality">
+                                        <option value="high">High Quality</option>
+                                        <option value="medium" selected>Medium Quality</option>
+                                        <option value="low">Low Quality (for slow connections)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="mb-3">
+                                    <label for="crossfade" class="form-label">Crossfade between songs (seconds)</label>
+                                    <input type="range" class="form-range" id="crossfade" min="0" max="10" value="3">
+                                    <div class="form-text" id="crossfade-value">3 seconds</div>
+                                </div>
+                                
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="auto-play" checked>
+                                    <label class="form-check-label" for="auto-play">Auto-play next song</label>
+                                </div>
+                                
+                                <div class="form-check form-switch mb-3">
+                                    <input class="form-check-input" type="checkbox" id="save-playback" checked>
+                                    <label class="form-check-label" for="save-playback">Save playback position</label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Keyboard Shortcuts</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>Space / K</span>
+                                                <span class="text-muted">Play/Pause</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>N / Right Arrow</span>
+                                                <span class="text-muted">Next Song</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>P / Left Arrow</span>
+                                                <span class="text-muted">Previous Song</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>F</span>
+                                                <span class="text-muted">Favorite Song</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>M</span>
+                                                <span class="text-muted">Mute/Unmute</span>
+                                            </li>
+                                            <li class="list-group-item d-flex justify-content-between">
+                                                <span>L</span>
+                                                <span class="text-muted">Toggle Loop</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
