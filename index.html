@@ -288,5 +288,83 @@
             </div>
         </div>
     </div>
+    <title>Login</title>
+    <link rel="stylesheet" href="/Css/style.css">
+</head>
+<body>
+    <div class="splash" id="splash">
+    <div class="logo-container">
+        <div class="logo">♪</div>
+    </div>
+    <h1>MusicPlayer</h1>
+</div>
+
+<div class="container" id="container">
+    <div class="auth-box" id="authBox">
+
+        <!-- Login Form -->
+        <div id="loginForm">
+            <h2>Welcome Back</h2>
+            
+            <div class="message error" id="loginError"></div>
+            <div class="message success" id="loginSuccess"></div>
+
+            <form id="login">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" name="email" placeholder="hello@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+
+            <div class="toggle-text">
+                Don't have an account? 
+                <a href="#" id="showRegister">Register</a>
+            </div>
+        </div>
+
+        <!-- Register Form -->
+        <div id="registerForm" style="display: none;">
+            <h2>Create Account</h2>
+            
+            <div class="message error" id="registerError"></div>
+            <div class="message success" id="registerSuccess"></div>
+
+            <form id="register">
+                <div class="form-group">
+                    <label for="registerEmail">Email</label>
+                    <input type="email" id="registerEmail" name="email" placeholder="hello@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerPassword">Password</label>
+                    <input type="password" id="registerPassword" name="password" placeholder="••••••••" required>
+                    <span id="togglePassword">👁</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="registerConfirmPassword">Confirm Password</label>
+                    <input type="password" id="registerConfirmPassword" name="confirmPassword" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+
+            <div class="toggle-text">
+                Already have an account? 
+                <a href="#" id="showLogin">Log In</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="/JS/loing.js"></script>
+    
 </body>
 </html>
